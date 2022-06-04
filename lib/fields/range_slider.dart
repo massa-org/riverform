@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:riverform/bindings/form_bindings.dart';
 
-class RiverformSwitchListTile extends StatelessWidget {
-  const RiverformSwitchListTile({
-    Key? key,
-    required this.binding,
-  }) : super(key: key);
+class RiverformRangeSlider extends StatelessWidget {
+  const RiverformRangeSlider({Key? key, required this.binding})
+      : super(key: key);
 
-  final FormBinding<bool> binding;
+  final FormBinding<RangeValues> binding;
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<bool>(
+    return StreamBuilder<RangeValues>(
       stream: binding.valueStream,
       builder: (context, snapshot) {
-        return SwitchListTile(
-          value: snapshot.data ?? binding.initial,
+        return RangeSlider(
+          values: snapshot.data ?? binding.initial,
           onChanged: (v) => binding.update((_) => v),
         );
       },

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverform/bindings/form_bindings.dart';
 
-class RiverformCheckboxListTile extends ConsumerWidget {
+class RiverformCheckboxListTile extends StatelessWidget {
   const RiverformCheckboxListTile({
     Key? key,
     this.title,
@@ -20,7 +19,7 @@ class RiverformCheckboxListTile extends ConsumerWidget {
   final FormBinding<bool?> binding;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return StreamBuilder<bool?>(
       stream: binding.valueStream,
       builder: (context, snapshot) {

@@ -1,20 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:riverform/bindings/form_bindings.dart';
 
-class RiverformSwitchListTile extends StatelessWidget {
-  const RiverformSwitchListTile({
-    Key? key,
-    required this.binding,
-  }) : super(key: key);
+class RiverformSlider extends StatelessWidget {
+  const RiverformSlider({Key? key, required this.binding}) : super(key: key);
 
-  final FormBinding<bool> binding;
+  final FormBinding<double> binding;
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<bool>(
+    return StreamBuilder<double>(
       stream: binding.valueStream,
       builder: (context, snapshot) {
-        return SwitchListTile(
+        return Slider(
           value: snapshot.data ?? binding.initial,
           onChanged: (v) => binding.update((_) => v),
         );
