@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverform/fields/checkbox_list_tile.dart';
+import 'package:riverform/fields/switch_list_tile.dart';
 
 import 'package:riverform/riverform.dart';
 
@@ -23,6 +25,8 @@ class MyApp extends StatelessWidget {
 }
 
 final _stringValue = StateProvider((ref) => '');
+final _boolValue = StateProvider((ref) => true);
+final _optionalBoolValue = StateProvider<bool?>((_) => true);
 
 class MyHomePage extends ConsumerWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -32,8 +36,35 @@ class MyHomePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Riverform examples')),
       body: SafeArea(
-        child: RiverformTextField(
-          binding: ref.watch(_stringValue.binding),
+        child: ListView(
+          children: [
+            RiverformTextField(
+              binding: ref.watch(_stringValue.binding),
+            ),
+            Row(
+              children: [
+                Text(ref.watch(_stringValue)),
+                TextButton(
+                  onPressed: () =>
+                      ref.watch(_stringValue.notifier).update((v) => v + 'A'),
+                  child: const Text('A'),
+                ),
+              ],
+            ),
+            RiverformSwitchListTile(binding: ref.watch(_boolValue.binding)),
+            RiverformCheckboxListTile(
+              title: const Text('simple'),
+              binding: ref.watch(_boolValue.binding),
+            ),
+            RiverformCheckboxListTile(
+              title: const Text('tristate by binding type'),
+              binding: ref.watch(_optionalBoolValue.binding),
+            ),
+            RiverformCheckboxListTile(
+              title: const Text('forced tristate'),
+              binding: ref.watch(_optionalBoolValue.binding),
+            ),
+          ],
         ),
       ),
     );
